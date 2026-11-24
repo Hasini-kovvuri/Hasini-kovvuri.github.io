@@ -42,7 +42,7 @@ but change the two buttons in `404.html` from `/index.html` and `/projects.html`
 - **Screenshots:** replace files in `assets/img/work/` keeping the same names (`.webp`).
 - **Text:** edit the `.html` files directly on GitHub (pencil icon) and commit.
 - **Skills map:** skills and project links are the `CHIPS` and `SKILLS` lists at the top of `assets/js/board.js`.
-- **Colours:** both palettes are defined at the top of `assets/css/style.css`.
+- **Colours:** the palette is defined at the top of `assets/css/style.css`.
 
 ## Before sharing
 
