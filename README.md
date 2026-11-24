@@ -21,7 +21,7 @@ Everything respects the visitor's *reduce motion* setting and still works if the
 | `contact.html` | Email, phone, LinkedIn, GitHub, resume |
 | `404.html` | Page-not-found page (GitHub Pages uses it automatically) |
 
-Shared files are in `assets/`: `css/style.css`, `js/main.js` (interactions), `js/board.js` (skills map), `js/bgfx.js` (interactive grid behind the Connect section),
+Shared files are in `assets/`: `css/style.css`, `js/main.js` (interactions, including the soft cursor glow), `js/board.js` (skills map), `js/bgfx.js` (interactive grid behind the Connect section),
 `fonts/` (self-hosted Geist, OFL licence), `img/` (photo, favicon), `img/work/` (project screenshots) and `Hasini_Kovvuri_Resume.pdf`.
 
 ## Deploy on GitHub Pages

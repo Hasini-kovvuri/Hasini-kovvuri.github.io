@@ -420,3 +420,26 @@
     });
   }
 }
+
+/* Background glow: a soft aqua light follows the cursor behind every page (mouse only, off under reduced motion) */
+{
+  if (matchMedia("(hover: hover) and (pointer: fine)").matches && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const glow = document.createElement("div");
+    glow.className = "cglow"; glow.setAttribute("aria-hidden", "true");
+    document.body.prepend(glow);
+    let x = innerWidth / 2, y = innerHeight / 3, tx = x, ty = y, raf = 0, idle = 0;
+    const tick = () => {
+      x += (tx - x) * .12; y += (ty - y) * .12;
+      glow.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0)`;
+      raf = Math.abs(tx - x) + Math.abs(ty - y) > .3 ? requestAnimationFrame(tick) : 0;
+    };
+    addEventListener("pointermove", e => {
+      if (e.pointerType !== "mouse") return;
+      tx = e.clientX; ty = e.clientY;
+      glow.classList.add("on");
+      clearTimeout(idle); idle = setTimeout(() => glow.classList.remove("on"), 2600);
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => glow.classList.remove("on"));
+  }
+}

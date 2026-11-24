@@ -784,3 +784,7 @@ details[open] .xpbody{animation:open .5s var(--ease)}
 .h3stats.proof em{display:block;margin-top:4px;font:500 11.5px/1.35 "Geist Mono",monospace;font-style:normal;color:var(--mute);opacity:.8}
 .facts .big .how{margin:8px 0 0;font-size:13px;line-height:1.45;color:var(--mute)}
 .sample{margin-top:12px;display:inline-block;max-width:44em;padding:8px 14px;border:1px dashed var(--rule);border-radius:12px;font-size:13px;color:var(--mute)}
+
+/* soft cursor glow behind every page */
+.cglow{position:fixed;left:0;top:0;width:900px;height:900px;margin:-450px 0 0 -450px;z-index:-1;pointer-events:none;border-radius:50%;background:radial-gradient(closest-side,rgba(var(--accA),.13),rgba(var(--accA),.05) 45%,transparent 100%);opacity:0;transition:opacity .9s ease;will-change:transform}
+.cglow.on{opacity:1}
