@@ -72,6 +72,13 @@
   });
 
   /* ---------- split words + reveals ---------- */
+  // headings and paragraphs reveal word by word as they scroll into view
+  const SKIP = "header, footer, nav, .preloader, .overlay, .marq, .board, .lb, .veil, .rotin, [data-count], .mailcopy, .hint4, .brk";
+  if (!reduce) for (const el of document.querySelectorAll("main h1, main h2, main h3, main p")) {
+    if (el.hasAttribute("data-split") || el.closest(SKIP) || el.querySelector(".rotin, [data-count], img, svg, input, button, br") || !el.textContent.trim()) continue;
+    el.setAttribute("data-split", "");
+    el.classList.remove("reveal"); // the words carry the motion; no second fade on the same element
+  }
   const splitNode = (node, counter) => {
     for (const ch of [...node.childNodes]) {
       if (ch.nodeType === 3) {
@@ -79,6 +86,7 @@
         ch.textContent.split(/(\s+)/).forEach(part => {
           if (!part) return;
           if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(" ")); return; }
+          if (part.length > 26) { frag.appendChild(document.createTextNode(part)); return; } // long tokens such as links can still wrap
           const w = document.createElement("span"); w.className = "w";
           const i = document.createElement("span"); i.textContent = part; i.style.setProperty("--i", counter.n++);
           w.appendChild(i); frag.appendChild(w);
@@ -87,7 +95,11 @@
       } else if (ch.nodeType === 1 && !ch.classList.contains("w")) splitNode(ch, counter);
     }
   };
-  for (const el of document.querySelectorAll("[data-split]")) splitNode(el, { n: 0 });
+  for (const el of document.querySelectorAll("[data-split]")) {
+    const c = { n: 0 }; splitNode(el, c);
+    // whole line in well under a second, however long the text: 34ms per word for short headings, tighter for long paragraphs
+    el.style.setProperty("--step", Math.max(7, Math.min(34, 650 / Math.max(c.n, 1))).toFixed(1) + "ms");
+  }
   const watch = els => {
     if (!("IntersectionObserver" in window) || reduce) { els.forEach(r => r.classList.add("in")); return; }
     const pending = new Set(els);

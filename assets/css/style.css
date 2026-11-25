@@ -135,10 +135,11 @@ ul.pts li::marker{color:var(--acc)}
 .backfloat[hidden]{display:none}
 
 /* reveals */
-.w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}
+.w{display:inline-block}
 .w>span{display:inline-block}
-.js [data-split] .w>span{transform:translateY(110%);transition:transform 1.1s var(--ease) calc(var(--i,0)*36ms)}
-.js [data-split].in .w>span{transform:none}
+.js [data-split] .w>span{opacity:0;transform:translate3d(0,.5em,0);transition:opacity .75s cubic-bezier(.2,.7,.2,1) calc(var(--i,0)*var(--step,34ms)),transform .9s var(--ease) calc(var(--i,0)*var(--step,34ms))}
+.js [data-split].in .w>span{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.js [data-split] .w>span{opacity:1;transform:none;transition:none}}
 .js .reveal{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
 .js .reveal.in{opacity:1;transform:none}
 .js .reveal.d1{transition-delay:.08s}.js .reveal.d2{transition-delay:.16s}.js .reveal.d3{transition-delay:.24s}
